@@ -1,14 +1,16 @@
-from time import sleep_ms
 from machine import Pin, SoftSPI
 
 from micropython_mfrc522.mfrc522 import MFRC522
 
 sck = Pin(18, Pin.OUT)
-mosi = Pin(23, Pin.OUT)
-miso = Pin(19, Pin.OUT)
-spi = SoftSPI(baudrate=100000, polarity=0, phase=0, sck=sck, mosi=mosi, miso=miso)
+copi = Pin(23, Pin.OUT) # Controller out, peripheral in
+cipo = Pin(19, Pin.OUT) # Controller in, peripheral out
+spi = SoftSPI(baudrate=100000, polarity=0, phase=0, sck=sck, mosi=copi, miso=cipo)
 sda = Pin(21, Pin.OUT)
 reader = MFRC522(spi, sda)
+
+print('Place Card In Front Of Device To Read Unique Address')
+print('')
 
 while True:
     try:
@@ -22,8 +24,8 @@ while True:
                 print('')
                 if reader.select_tag(raw_uid) == reader.OK:
                     key = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
-                    if reader.auth(reader.AUTHENT1A, 8, key, raw_uid) == reader.OK:
-                        print("Address 8 Data: %s" % reader.read(8))
+                    if reader.auth(reader.AUTH, 8, key, raw_uid) == reader.OK:
+                        print("Address Data: %s" % reader.read(8))
                         reader.stop_crypto1()
                     else:
                         print("AUTH ERROR")
