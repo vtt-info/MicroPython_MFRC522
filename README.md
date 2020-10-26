@@ -19,9 +19,12 @@ from micropython_mfrc522.mfrc522 import MFRC522
 sck = Pin(18, Pin.OUT)
 copi = Pin(23, Pin.OUT) # Controller out, peripheral in
 cipo = Pin(19, Pin.OUT) # Controller in, peripheral out
-spi = SoftSPI(baudrate=100000, polarity=0, phase=0, sck=sck, mosi=mosi, miso=miso)
+spi = SoftSPI(baudrate=100000, polarity=0, phase=0, sck=sck, mosi=copi, miso=cipo)
 sda = Pin(21, Pin.OUT)
 reader = MFRC522(spi, sda)
+
+print('Place Card In Front Of Device To Read Unique Address')
+print('')
 
 while True:
     try:
@@ -53,11 +56,10 @@ from micropython_mfrc522.mfrc522 import MFRC522
 sck = Pin(18, Pin.OUT)
 copi = Pin(23, Pin.OUT) # Controller out, peripheral in
 cipo = Pin(19, Pin.OUT) # Controller in, peripheral out
-spi = SoftSPI(baudrate=100000, polarity=0, phase=0, sck=sck, mosi=mosi, miso=miso)
+spi = SoftSPI(baudrate=100000, polarity=0, phase=0, sck=sck, mosi=copi, miso=cipo)
 sda = Pin(21, Pin.OUT)
 reader = MFRC522(spi, sda)
 
-print('')
 print('Place Card In Front Of Device To Write Unique Address')
 print('')
 
@@ -91,3 +93,36 @@ while True:
 
 ### Hardware Set-up
 Connect 3.3 V to 3.3 V power source, GND to ground, SCK, COPI, CIPO, SPI and SDA to the appropriate pins.
+
+### Basics
+You must import machine, SoftSPI, Pin and the library:
+```python
+from machine import SoftSPI, Pin
+```
+To set-up the device to gather data, initialize the SoftI2CDevice using SDA, SCK, COPI and CIPO pins and then initialize the library to provide new data ready to be read or write.
+
+### Read
+To read the unique address data:
+```python
+print("Address Data: %s" % reader.read(8))
+```
+
+### Write
+To write the unique address data:
+```python
+status = reader.write(8, b'\x08\x06\x07\x05\x03\x00\x09\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+```
+
+## Run Tests in REPL
+```bash
+import unittest
+unittest.main('test_mfrc522')
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT License](https://github.com/mytechnotalent/MicroPython_MPU6050/blob/main/LICENSE)
