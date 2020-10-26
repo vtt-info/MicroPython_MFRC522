@@ -4,7 +4,7 @@
 An MFRC522 device driver library for MicroPython.
 
 ## Introduction
-The MFRC522 is a specialized chip that reads and writes RFID data over SPI. Its available on [Amazon](https://www.amazon.com/SunFounder-Mifare-Reader-Arduino-Raspberry/dp/B07KGBJ9VG).
+The MFRC522 is a specialized chip that reads and writes RFID data over SPI. It is available on [Amazon](https://www.amazon.com/SunFounder-Mifare-Reader-Arduino-Raspberry/dp/B07KGBJ9VG).
 
 ## Installation & Dependencies
 This driver depends on:
