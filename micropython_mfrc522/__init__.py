@@ -1,0 +1,1 @@
+"""common include for MFRC522 driver"""
