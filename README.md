@@ -17,8 +17,8 @@ from machine import Pin, SoftSPI
 from micropython_mfrc522.mfrc522 import MFRC522
 
 sck = Pin(18, Pin.OUT)
-mosi = Pin(23, Pin.OUT)
-miso = Pin(19, Pin.OUT)
+copi = Pin(23, Pin.OUT) # Controller out, peripheral in
+cipo = Pin(19, Pin.OUT) # Controller in, peripheral out
 spi = SoftSPI(baudrate=100000, polarity=0, phase=0, sck=sck, mosi=mosi, miso=miso)
 sda = Pin(21, Pin.OUT)
 reader = MFRC522(spi, sda)
@@ -51,8 +51,8 @@ from machine import Pin, SoftSPI
 from micropython_mfrc522.mfrc522 import MFRC522
 
 sck = Pin(18, Pin.OUT)
-mosi = Pin(23, Pin.OUT)
-miso = Pin(19, Pin.OUT)
+copi = Pin(23, Pin.OUT) # Controller out, peripheral in
+cipo = Pin(19, Pin.OUT) # Controller in, peripheral out
 spi = SoftSPI(baudrate=100000, polarity=0, phase=0, sck=sck, mosi=mosi, miso=miso)
 sda = Pin(21, Pin.OUT)
 reader = MFRC522(spi, sda)
@@ -88,3 +88,6 @@ while True:
     except KeyboardInterrupt:
         break
 ```
+
+### Hardware Set-up
+Connect 3.3 V to 3.3 V power source, GND to ground, SCK, COPI, CIPO, SPI and SDA to the appropriate pins.
