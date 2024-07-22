@@ -217,7 +217,7 @@ class MFRC522:
 			if (self._read_reg(MFRC522_ERROR_REG) & 0x1B) == 0x00:
 				status = self.OK
 				if n & irq_en & 0x01:
-					status = self.NOTAGERR
+					status = self.NO_TAG_ERR
 				elif cmd == TRANSCEIVE:
 					n = self._read_reg(MFRC522_FIFO_LEVEL_REG)
 					last_bits = self._read_reg(MFRC522_CONTROL_REG) & 0x07
